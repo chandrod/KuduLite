@@ -112,7 +112,9 @@ namespace Kudu.Core.K8SE
         /// <param name="buildNumber">Build number to update</param>
         public static void UpdateFunctionAppTriggers(string appName, IEnumerable<ScaleTrigger> functionTriggers, BuildMetadata buildMetadata)
         {
+            Console.WriteLine("chandrod ####A");
             var functionAppPatchJson = GetFunctionAppPatchJson(functionTriggers, buildMetadata);
+            Console.WriteLine("chandrod ####B patch : {0}",functionAppPatchJson);
             if (string.IsNullOrEmpty(functionAppPatchJson))
             {
                 return;
@@ -122,6 +124,7 @@ namespace Kudu.Core.K8SE
             BuildCtlArgumentsHelper.AddBuildCtlCommand(cmd, "updatejson");
             BuildCtlArgumentsHelper.AddAppNameArgument(cmd, appName);
             BuildCtlArgumentsHelper.AddFunctionTriggersJsonToPatchValueArgument(cmd, functionAppPatchJson);
+            Console.WriteLine("chandrod ####C  cmd : {0}",cmd.ToString());
             RunBuildCtlCommand(cmd.ToString(), "Updating function app triggers...");
         }
 
@@ -132,6 +135,7 @@ namespace Kudu.Core.K8SE
             BuildCtlArgumentsHelper.AddSecretName(cmd, secretName);
             BuildCtlArgumentsHelper.AddAppNameArgument(cmd, appName);
             BuildCtlArgumentsHelper.AddAuthRefSecretKeyToParamMap(cmd, authRefSecretKeyToParamMap);
+            Console.WriteLine("chandrod TriggerAuthRef cmd : {0}", cmd.ToString());
             RunBuildCtlCommand(cmd.ToString(), "Creating Trigger Authentication...");
         }
 
